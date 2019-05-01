@@ -1,5 +1,6 @@
 from room import Room
 from player import Player
+from item import Item
 
 
 # Declare all the rooms
@@ -23,6 +24,10 @@ chamber! Sadly, it has already been completely emptied by
 earlier adventurers. The only exit is to the south."""), 
 }
 
+item = {
+    'sword': Item("Sword", """The Hand of Goulasjh - A gold coated hilt adorned with priceless jewels and a very worn blade.""")
+}
+
 
 # Link rooms together
 
@@ -35,6 +40,10 @@ room['narrow'].w_to = room['foyer']
 room['narrow'].n_to = room['treasure']
 room['treasure'].s_to = room['narrow']
 
+# Link items to rooms
+room['foyer'].list.append(item['sword'])
+room['foyer'].list.append(item['sword'])
+
 #
 # Main
 #
@@ -44,6 +53,7 @@ current_player = Player("Player1", room['outside'])
 
 # Function that attempts to move the player via the direction they typed
 def move_player(move, current_room):
+    print("moving player")
     if move == "n" and current_room.n_to != "":
         room = current_room.n_to
     elif move == "s" and current_room.s_to != "":
@@ -66,6 +76,11 @@ while True:
     
     # * Prints the current description (the textwrap module might be useful here).
     print(current_player.current_room.description)
+
+    # * Prints the items that are visible to the player in the room they are in
+    for x in current_player.current_room.list:
+        print(x)
+
     # * Waits for user input and decides what to do.
     move = input("\n Please enter a cardinal direction. (Ex: North) \n Or a q to quit the game. >>").lower()[0]        
     # If the user enters "q", quit the game.
