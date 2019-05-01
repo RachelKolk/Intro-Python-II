@@ -1,6 +1,7 @@
 from room import Room
 from player import Player
 
+
 # Declare all the rooms
 
 room = {
@@ -19,7 +20,7 @@ to north. The smell of gold permeates the air."""),
 
     'treasure': Room("Treasure Chamber", """You've found the long-lost treasure
 chamber! Sadly, it has already been completely emptied by
-earlier adventurers. The only exit is to the south."""),
+earlier adventurers. The only exit is to the south."""), 
 }
 
 
@@ -40,26 +41,39 @@ room['treasure'].s_to = room['narrow']
 
 # Make a new player object that is currently in the 'outside' room.
 current_player = Player("Player1", room['outside'])
-print(current_player)
+
+# Function that attempts to move the player via the direction they typed
+def move_player(move, current_room):
+    if move == "n" and current_room.n_to != "":
+        room = current_room.n_to
+    elif move == "s" and current_room.s_to != "":
+        room = current_room.s_to
+    elif move == "e" and current_room.e_to != "":
+        room = current_room.e_to
+    elif move == "w" and current_room.w_to != "":
+        room = current_room.w_to
+    else:
+        print("\n\nThere is nowhere to go in that direction!")
+        return current_room
+    return room
+    
+
 
 # Write a loop that:
-#
-# * Prints the current room name
-# * Prints the current description (the textwrap module might be useful here).
-# * Waits for user input and decides what to do.
-#
-# If the user enters a cardinal direction, attempt to move to the room there.
-# Print an error message if the movement isn't allowed.
-#
-# If the user enters "q", quit the game.
-
-# while True:
-#     print(f"You've entered the {self.name}. \n{self.description}")
-#     move = input("\n Choose n, e, s, or w to move. You can also choose q to quit.")
-#     if move == "q":
-#         print("Thanks for playing! See you next time!")
-#         break
-#     elif move == "n" or move == "e" or move == "s" or move== "w":
-#         player_movement(move)
-#     else:
-#         print("Please enter a cardinal direction to move. For example: n, s, e, or w")
+while True:
+    # * Prints the current room name
+    print(current_player.current_room.name)
+    
+    # * Prints the current description (the textwrap module might be useful here).
+    print(current_player.current_room.description)
+    # * Waits for user input and decides what to do.
+    move = input("\n Please enter a cardinal direction. (Ex: North) \n Or a q to quit the game. >>").lower()[0]        
+    # If the user enters "q", quit the game.
+    if move == "q":
+        print(" Thanks for playing!")
+        break    
+    # If the user enters a cardinal direction, attempt to move to the room there.
+    # Print an error message if the movement isn't allowed.
+    current_player.current_room = move_player(move, current_player.current_room)
+    print("\n")
+   
