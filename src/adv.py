@@ -2,6 +2,20 @@ from room import Room
 from player import Player
 from item import Item
 
+# A few quick color classes to use for colorizing terminal messages
+class bcolors:
+    HEADER = '\033[95m'
+    OKBLUE = '\033[94m'
+    OKGREEN = '\033[92m'
+    WARNING = '\033[91m'
+    FAIL = '\033[91m'
+    ENDC = '\033[0m'
+    BOLD = '\033[1;97m'
+    UNDERLINE = '\033[4m'
+	
+def colorize(string,color):
+  return getattr(bcolors, color) + string + bcolors.ENDC
+
 
 # Declare all the rooms
 
@@ -25,7 +39,15 @@ earlier adventurers. The only exit is to the south."""),
 }
 
 item = {
-    'sword': Item("Sword", """The Hand of Goulasjh - A gold coated hilt adorned with priceless jewels and a very worn blade.""")
+    'sword': Item("Sword", """A gold coated hilt adorned with priceless jewels and a very worn blade."""),
+    'axe': Item("Axe", """It reminds you of one you saw wielded in a rural mountain village years ago. The carvings on the blade are eerily similar."""),
+    'statue': Item("Statue", """A small broken stone animal that is too crudley carved to recognize."""),
+    "necklace": Item("Necklace", """A dull piece of gray stone set in an intricately carved silver pendant. The chain is a simple leather cord."""),
+    "plant": Item("Plant", """Found nestled, growing tightly in the rock. It is small and unassuming, but it's petals seem to glow."""),
+    "rock": Item("Rock", """Nothing special, just a nice small rock that fits perfectly in the palm of your hand."""),
+    "dagger": Item("Dagger", """Small and very sharp, it is not pretty but looks like it could cut through almost anything."""),
+    "club": Item("Club", """A roughly cut, and heavily splintered, wooden club."""),
+    "seeds": Item("Seeds", """A tiny clay pot filled with seeds.""")
 }
 
 
@@ -42,7 +64,14 @@ room['treasure'].s_to = room['narrow']
 
 # Link items to rooms
 room['foyer'].list.append(item['sword'])
-room['foyer'].list.append(item['sword'])
+room['narrow'].list.append(item['axe'])
+room['outside'].list.append(item['statue'])
+room['treasure'].list.append(item['necklace'])
+room['overlook'].list.append(item['plant'])
+room['outside'].list.append(item['rock'])
+room['foyer'].list.append(item['dagger'])
+room['overlook'].list.append(item['seeds'])
+room['treasure'].list.append(item['club'])
 
 
 #
@@ -86,7 +115,7 @@ def item_action(action, item , player):
 # Write a loop that:
 while True:
     # * Prints the current room name
-    # additional empty prints a hacky way of better spacing - looking into how to do this better...
+    # additional empty prints = a hacky way of better spacing - looking into how to do this better...
     print()
     print(current_player.current_room.name)
     print()
