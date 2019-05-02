@@ -35,19 +35,35 @@ to north. The smell of gold permeates the air."""),
 
     'treasure': Room("Treasure Chamber", """You've found the long-lost treasure
 chamber! Sadly, it has already been completely emptied by
-earlier adventurers. The only exit is to the south."""), 
+earlier adventurers. The only exit is to the south."""),
+
+    'stable': Room("The Stable", """It's warm and smells of leather and horses. The only exit is back outside, to the south."""),
+
+    'conservatory': Room("The Conservatory", "Broken glass litters the floor, although all the windos are still intact, it looks like hundreds of mirrors have been thrown to the floor, their reflective shards dizzying with reflective light from the setting sun."""),
+
+    'library': Room("The Library", """The smell of old paper and a leather permeates the air, along with the faintest hint of a recent fire in the fireplace."""),
+
+    'greenhouse': Room("The Greenhouse", """The glass room is not large, and the glass has not been cleaned in ages. There is something off about the smell, as if there is more than just soil, plants, and compost tucked away in the floriferous space."""),
+
 }
 
 item = {
-    'sword': Item("Sword", """A gold coated hilt adorned with priceless jewels and a very worn blade."""),
-    'axe': Item("Axe", """It reminds you of one you saw wielded in a rural mountain village years ago. The carvings on the blade are eerily similar."""),
-    'statue': Item("Statue", """A small broken stone animal that is too crudley carved to recognize."""),
+    "sword": Item("Sword", """A gold coated hilt adorned with priceless jewels and a very worn blade."""),
+    "axe": Item("Axe", """It reminds you of one you saw wielded in a rural mountain village years ago. The carvings on the blade are eerily similar."""),
+    "statue": Item("Statue", """A small broken stone animal that is too crudley carved to recognize."""),
     "necklace": Item("Necklace", """A dull piece of gray stone set in an intricately carved silver pendant. The chain is a simple leather cord."""),
     "plant": Item("Plant", """Found nestled, growing tightly in the rock. It is small and unassuming, but it's petals seem to glow."""),
     "rock": Item("Rock", """Nothing special, just a nice small rock that fits perfectly in the palm of your hand."""),
     "dagger": Item("Dagger", """Small and very sharp, it is not pretty but looks like it could cut through almost anything."""),
     "club": Item("Club", """A roughly cut, and heavily splintered, wooden club."""),
-    "seeds": Item("Seeds", """A tiny clay pot filled with seeds.""")
+    "seeds": Item("Seeds", """A tiny clay pot filled with seeds."""),
+    "rope": Item("Rope", """A solid piece of rope, who knows when it might come in handy."""),
+    "flute": Item("Flute", """It might come in handy on quiet evenings at the tavern or even around a fire."""),
+    "vase": Item("Vase", """Made of a dark blue glass with ribbons of what looks like gold running through it."""),
+    "pen": Item("Pen", """Of an old variety to use it you'll need some kind of ink. The body of the pen is carved out of a dark piece of wood and is smooth and shiny."""),
+    "journal": Item("Journal", """The pages are filled with the hurried writings of a man named Korv. He warns of danger."""),
+    "inkwell": Item("Inkwell", """An inkwell filled with black ink."""),
+    "shovel": Item("Shovel", """A small shovel that easily fits in your bag. It looks like it's done a lot of digging before.""")
 }
 
 
@@ -61,6 +77,18 @@ room['overlook'].s_to = room['foyer']
 room['narrow'].w_to = room['foyer']
 room['narrow'].n_to = room['treasure']
 room['treasure'].s_to = room['narrow']
+room['outside'].s_to = room['stable']
+room['stable'].n_to = room['outside']
+room['stable'].w_to = room['greenhouse']
+room['foyer'].w_to = room['conservatory']
+room['conservatory'].s_to = room['library']
+room['conservatory'].e_to = room['foyer']
+room['library'].n_to = room['conservatory']
+room['library'].e_to = room['outside']
+room['library'].s_to = room['greenhouse']
+room['greenhouse'].e_to = room['stable']
+room['greenhouse'].n_to = room['library']
+room['outside'].w_to = room['library']
 
 # Link items to rooms
 room['foyer'].list.append(item['sword'])
@@ -72,6 +100,13 @@ room['outside'].list.append(item['rock'])
 room['foyer'].list.append(item['dagger'])
 room['overlook'].list.append(item['seeds'])
 room['treasure'].list.append(item['club'])
+room['stable'].list.append(item['rope'])
+room['conservatory'].list.append(item['flute'])
+room['conservatory'].list.append(item['vase'])
+room['library'].list.append(item['pen'])
+room['library'].list.append(item['journal'])
+room['greenhouse'].list.append(item['inkwell'])
+room['greenhouse'].list.append(item['shovel'])
 
 
 #
